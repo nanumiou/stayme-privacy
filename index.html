@@ -153,6 +153,15 @@
             margin-top: 20px;
         }
 
+        /* Multi-language Support */
+        [lang="ko"] .en-content {
+            display: none !important;
+        }
+
+        [lang="en"] .ko-content {
+            display: none !important;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 30px;
@@ -163,122 +172,298 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+
+            let targetLang = 'en';
+            if (langParam === 'ko' || langParam === 'en') {
+                targetLang = langParam;
+            } else {
+                const userLang = navigator.language || navigator.userLanguage;
+                if (userLang.startsWith('ko')) {
+                    targetLang = 'ko';
+                }
+            }
+            document.documentElement.setAttribute('lang', targetLang);
+        });
+    </script>
 </head>
 
 <body>
 
     <div class="container">
-        <header>
-            <h1>StayMe</h1>
-            <p>개인정보처리방침 (Privacy Policy)</p>
-            <p class="last-updated">Last Updated: April 23, 2026</p>
-        </header>
+        <!-- Korean Content -->
+        <div class="ko-content">
+            <header>
+                <h1>StayMe</h1>
+                <p>개인정보처리방침 (Privacy Policy)</p>
+                <p class="last-updated">Last Updated: April 23, 2026</p>
+            </header>
 
-        <section>
-            <h2>1. 데이터 처리 원칙</h2>
-            <p>StayMe는 사용자의 프라이버시를 최우선으로 설계되었습니다. 기본적으로 앱은 <strong>'익명성'</strong>을 바탕으로 운영되며, 실시간 집중에 필요한 데이터만 일시적으로
-                처리합니다. 단, <strong>'StayMe Premium' 구독 서비스</strong>를 이용하기 위해 자발적으로 소셜 계정을 연동한 사용자에 한하여 결제 및 권한 유지를 위한
-                최소한의 데이터를 보관합니다.</p>
-        </section>
+            <section>
+                <h2>1. 데이터 처리 원칙</h2>
+                <p>StayMe는 사용자의 프라이버시를 최우선으로 설계되었습니다. 기본적으로 앱은 <strong>'익명성'</strong>을 바탕으로 운영되며, 실시간 집중에 필요한 데이터만 일시적으로
+                    처리합니다. 단, <strong>'StayMe Premium' 구독 서비스</strong>를 이용하기 위해 자발적으로 소셜 계정을 연동한 사용자에 한하여 결제 및 권한 유지를 위한
+                    최소한의 데이터를 보관합니다.</p>
+            </section>
 
-        <section>
-            <h2>2. 데이터 수집 및 보관 방식</h2>
-            <p>본 앱은 사용 형태에 따라 데이터를 세 가지 방식으로 구분하여 처리합니다.</p>
+            <section>
+                <h2>2. 데이터 수집 및 보관 방식</h2>
+                <p>본 앱은 사용 형태에 따라 데이터를 세 가지 방식으로 구분하여 처리합니다.</p>
 
-            <div class="data-card">
-                <h3>A. 기기 내 로컬 저장 (모든 사용자)</h3>
-                <p>다음 정보는 서버로 전송되지 않으며, 오직 사용자의 기기에만 저장됩니다. 앱을 삭제하면 함께 제거됩니다.</p>
-                <ul>
-                    <li>개인 설정 (타이머 시간, 배경화면, 테마 모드 등)</li>
-                    <li>사용자 기기 전용 닉네임</li>
-                    <li>온보딩 완료 여부</li>
-                </ul>
-            </div>
+                <div class="data-card">
+                    <h3>A. 기기 내 로컬 저장 (모든 사용자)</h3>
+                    <p>다음 정보는 서버로 전송되지 않으며, 오직 사용자의 기기에만 저장됩니다. 앱을 삭제하면 함께 제거됩니다.</p>
+                    <ul>
+                        <li>개인 설정 (타이머 시간, 배경화면, 테마 모드 등)</li>
+                        <li>사용자 기기 전용 닉네임</li>
+                        <li>온보딩 완료 여부</li>
+                    </ul>
+                </div>
 
-            <div class="data-card">
-                <h3>B. 실시간 전송 데이터 (모든 사용자)</h3>
-                <p>실시간 접속자 표시 기능을 위해 일시적으로 서버를 통과하거나 머무는 휘발성 데이터입니다.</p>
-                <ul>
-                    <li><strong>익명 접속 ID:</strong> 무작위 생성된 식별값으로, 단독으로 실제 인적 사항을 특정할 수 없습니다.</li>
-                    <li><strong>실시간 상태:</strong> 현재 접속 여부, 설정된 닉네임, 접속 시작 시각이 포함되며 연결이 끊기면 파기됩니다.</li>
-                </ul>
-            </div>
+                <div class="data-card">
+                    <h3>B. 실시간 전송 데이터 (모든 사용자)</h3>
+                    <p>실시간 접속자 표시 기능을 위해 일시적으로 서버를 통과하거나 머무는 휘발성 데이터입니다.</p>
+                    <ul>
+                        <li><strong>익명 접속 ID:</strong> 무작위 생성된 식별값으로, 단독으로 실제 인적 사항을 특정할 수 없습니다.</li>
+                        <li><strong>실시간 상태:</strong> 현재 접속 여부, 설정된 닉네임, 접속 시작 시각이 포함되며 연결이 끊기면 파기됩니다.</li>
+                    </ul>
+                </div>
 
-            <div class="data-card">
-                <h3>C. 프리미엄 구독자 데이터 (구독 사용자 한정)</h3>
-                <p>프리미엄 구독을 위해 Apple 또는 Google 소셜 로그인을 연동한 사용자에 한해 다음 정보를 보관합니다.</p>
-                <ul>
-                    <li><strong>보안 식별자:</strong> 타 기기 로그인 및 구독 복원을 위한 암호화된 Provider UID (이메일 등은 앱에서 명시적으로 표시하거나 마케팅에
-                        사용하지 않습니다).</li>
-                    <li><strong>결제 상태 정보:</strong> 현재 구독 유효 여부(isPremium) 및 만료 일자(expiryDate). 본 앱은 신용카드 번호 등 민감한 금융 정보를
-                        직접 수집하거나 처리하지 않습니다.</li>
-                </ul>
-            </div>
+                <div class="data-card">
+                    <h3>C. 프리미엄 구독자 데이터 (구독 사용자 한정)</h3>
+                    <p>프리미엄 구독을 위해 Apple 또는 Google 소셜 로그인을 연동한 사용자에 한해 다음 정보를 보관합니다.</p>
+                    <ul>
+                        <li><strong>보안 식별자:</strong> 타 기기 로그인 및 구독 복원을 위한 암호화된 Provider UID (이메일 등은 앱에서 명시적으로 표시하거나 마케팅에
+                            사용하지 않습니다).</li>
+                        <li><strong>결제 상태 정보:</strong> 현재 구독 유효 여부(isPremium) 및 만료 일자(expiryDate). 본 앱은 신용카드 번호 등 민감한 금융
+                            정보를
+                            직접 수집하거나 처리하지 않습니다.</li>
+                    </ul>
+                </div>
 
-            <div class="data-card">
-                <h3>D. 그룹 채팅 데이터 (서비스 이용자 한정)</h3>
-                <p>동일한 초대 코드를 공유하는 '그룹 모드' 사용 시 원활한 소통을 위해 다음 정보를 일시적으로 보관합니다.</p>
-                <ul>
-                    <li><strong>채팅 메시지:</strong> 사용자가 직접 입력한 텍스트 내용 및 전송 시각.</li>
-                    <li><strong>발신자 정보:</strong> 메시지에 표시될 닉네임 및 사용자 식별 ID(UID).</li>
-                    <li><strong>공개 범위:</strong> 동일한 초대 코드를 입력하여 해당 그룹에 참여한 모든 멤버에게 공개됩니다.</li>
-                </ul>
-            </div>
-        </section>
+                <div class="data-card">
+                    <h3>D. 그룹 채팅 데이터 (서비스 이용자 한정)</h3>
+                    <p>동일한 초대 코드를 공유하는 '그룹 모드' 사용 시 원활한 소통을 위해 다음 정보를 일시적으로 보관합니다.</p>
+                    <ul>
+                        <li><strong>채팅 메시지:</strong> 사용자가 직접 입력한 텍스트 내용 및 전송 시각.</li>
+                        <li><strong>발신자 정보:</strong> 메시지에 표시될 닉네임 및 사용자 식별 ID(UID).</li>
+                        <li><strong>공개 범위:</strong> 동일한 초대 코드를 입력하여 해당 그룹에 참여한 모든 멤버에게 공개됩니다.</li>
+                    </ul>
+                </div>
+            </section>
 
-        <section>
-            <h2>3. 데이터 보관 기간 및 파기</h2>
-            <p>익명 사용자는 앱을 삭제하는 것만으로 기기에 저장된 모든 로컬 데이터가 삭제되며, 서버에 기록된 접속 상태 데이터는 즉시 자동 파기(Zero-Retention)됩니다.</p>
-            <p><strong>그룹 채팅 메시지</strong>의 경우, 대화의 연속성을 위해 서버에 <strong>최대 24시간 동안 보관</strong>된 후 자동으로 영구 삭제됩니다.</p>
-            <p>소셜 계정을 연동한 사용자의 경우, <strong>앱 내 '설정 > 계정 관리' 메뉴의 [계정 삭제] 버튼</strong>을 통해 언제든지 직접 탈퇴를 진행할 수 있습니다. 탈퇴 시 관련된
-                모든 사용자 식별자 및 서버 데이터는 즉시 영구 삭제됩니다.</p>
-        </section>
+            <section>
+                <h2>3. 데이터 보관 기간 및 파기</h2>
+                <p>익명 사용자는 앱을 삭제하는 것만으로 기기에 저장된 모든 로컬 데이터가 삭제되며, 서버에 기록된 접속 상태 데이터는 즉시 자동 파기(Zero-Retention)됩니다.</p>
+                <p><strong>그룹 채팅 메시지</strong>의 경우, 대화의 연속성을 위해 서버에 <strong>최대 24시간 동안 보관</strong>된 후 자동으로 영구 삭제됩니다.</p>
+                <p>소셜 계정을 연동한 사용자의 경우, <strong>앱 내 '설정 > 계정 관리' 메뉴의 [계정 삭제] 버튼</strong>을 통해 언제든지 직접 탈퇴를 진행할 수 있습니다. 탈퇴 시
+                    관련된
+                    모든 사용자 식별자 및 서버 데이터는 즉시 영구 삭제됩니다.</p>
+            </section>
 
-        <section id="delete-account">
-            <h2>4. 웹(Web)을 통한 계정 삭제 요청</h2>
-            <p>앱을 이미 삭제했거나 앱에 접속할 수 없는 경우, 아래의 방법으로 계정 및 관련 데이터 삭제를 요청하실 수 있습니다.</p>
-            <div class="contact-box">
-                <ul>
-                    <li><strong>요청 방법:</strong> 지원 이메일로 계정 식별 정보(소셜 로그인 이메일 주소 등)를 기재하여 발송</li>
-                    <li><strong>이메일 주소:</strong> <a
-                            href="mailto:support@franholdings.cloud?subject=StayMe 계정 삭제 요청">support@franholdings.cloud</a>
-                    </li>
-                    <li><strong>처리 기간:</strong> 요청 접수 후 영업일 기준 7일 이내 완료 및 확인 회신</li>
-                </ul>
-                <p style="font-size: 0.85rem; color: #cc4444; margin-top: 10px; font-weight: 600;">
-                    ※ 주의: 계정 삭제 시 프리미엄 멤버십 정보 및 모든 활동 데이터가 영구히 삭제되며 복구할 수 없습니다. 구독 관리(해지)는 각 스토어 계정 설정에서 직접 진행하셔야 합니다.
+            <section id="delete-account">
+                <h2>4. 웹(Web)을 통한 계정 삭제 요청</h2>
+                <p>앱을 이미 삭제했거나 앱에 접속할 수 없는 경우, 아래의 방법으로 계정 및 관련 데이터 삭제를 요청하실 수 있습니다.</p>
+                <div class="contact-box">
+                    <ul>
+                        <li><strong>요청 방법:</strong> 지원 이메일로 계정 식별 정보(소셜 로그인 이메일 주소 등)를 기재하여 발송</li>
+                        <li><strong>이메일 주소:</strong> <a
+                                href="mailto:support@franholdings.cloud?subject=StayMe 계정 삭제 요청">support@franholdings.cloud</a>
+                        </li>
+                        <li><strong>처리 기간:</strong> 요청 접수 후 영업일 기준 7일 이내 완료 및 확인 회신</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #cc4444; margin-top: 10px; font-weight: 600;">
+                        ※ 주의: 계정 삭제 시 프리미엄 멤버십 정보 및 모든 활동 데이터가 영구히 삭제되며 복구할 수 없습니다. 구독 관리(해지)는 각 스토어 계정 설정에서 직접 진행하셔야
+                        합니다.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2>5. 제3자 서비스 제공 및 위탁 (Third-Party Services)</h2>
+                <p>안정적인 기능 제공과 정기 결제 확인을 위해 다음의 공신력 있는 외부 인프라를 사용하고 있습니다. 데이터는 해당 목적 이외(광고, 제3자 마케팅 등)로 절대 사용되지 않습니다.
                 </p>
+                <ul>
+                    <li><strong>Google Firebase (Analytics):</strong> 앱 이용 행태 분석, 기능별 선호도 측정 및 서비스 개선을 위한 통계 데이터 수집
+                        (익명화된 앱
+                        인스턴스 식별자 기반).</li>
+                    <li><strong>Google Firebase (Auth/Database):</strong> 실시간 데이터 바인딩 및 소셜 로그인 인증을 위한 암호화된 클라우드 인프라 제공.
+                    </li>
+                    <li><strong>RevenueCat:</strong> 앱스토어 및 플레이스토어 인앱 결제 영수증(Receipt) 검증 및 구독 생애주기 관리 (익명화된 App User ID
+                        기반으로
+                        통신).</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>6. 사용자의 권리</h2>
+                <p>사용자는 닉네임과 실시간 기능을 언제든 제어할 수 있습니다. 수집되는 데이터 대부분이 휘발성이며, 익명 사용자는 앱을 삭제하는 것만으로 데이터 처리를 중단할 수 있습니다. 소셜 연동
+                    사용자의 경우, <strong>앱 내 '계정 삭제' 기능</strong> 또는 위의 <strong>웹 삭제 요청</strong>을 통해 즉시 데이터를 파기할 수 있습니다.</p>
+            </section>
+
+            <section>
+                <h2>7. 문의처</h2>
+                <div class="contact-box">
+                    <p>프라이버시와 데이터 처리, 혹은 계정 삭제와 관련하여 문의사항이 있으시면 아래로 연락 부탁드립니다.</p>
+                    <p style="margin-top: 10px;"><strong>지원 팀:</strong> support@franholdings.cloud</p>
+                </div>
+            </section>
+
+            <div class="footer">
+                &copy; 2026 프랜홀딩스. All rights reserved.
+                <br><br>
+                <a href="?lang=en" style="color: var(--text-sub); text-decoration: none; font-weight: 600;">English
+                    Version</a>
             </div>
-        </section>
+        </div>
 
-        <section>
-            <h2>5. 제3자 서비스 제공 및 위탁 (Third-Party Services)</h2>
-            <p>안정적인 기능 제공과 정기 결제 확인을 위해 다음의 공신력 있는 외부 인프라를 사용하고 있습니다. 데이터는 해당 목적 이외(광고, 제3자 마케팅 등)로 절대 사용되지 않습니다.</p>
-            <ul>
-                <li><strong>Google Firebase (Analytics):</strong> 앱 이용 행태 분석, 기능별 선호도 측정 및 서비스 개선을 위한 통계 데이터 수집 (익명화된 앱
-                    인스턴스 식별자 기반).</li>
-                <li><strong>Google Firebase (Auth/Database):</strong> 실시간 데이터 바인딩 및 소셜 로그인 인증을 위한 암호화된 클라우드 인프라 제공.</li>
-                <li><strong>RevenueCat:</strong> 앱스토어 및 플레이스토어 인앱 결제 영수증(Receipt) 검증 및 구독 생애주기 관리 (익명화된 App User ID 기반으로
-                    통신).</li>
-            </ul>
-        </section>
+        <!-- English Content -->
+        <div class="en-content">
+            <header>
+                <h1>StayMe</h1>
+                <p>Privacy Policy</p>
+                <p class="last-updated">Last Updated: April 23, 2026</p>
+            </header>
 
-        <section>
-            <h2>6. 사용자의 권리</h2>
-            <p>사용자는 닉네임과 실시간 기능을 언제든 제어할 수 있습니다. 수집되는 데이터 대부분이 휘발성이며, 익명 사용자는 앱을 삭제하는 것만으로 데이터 처리를 중단할 수 있습니다. 소셜 연동
-                사용자의 경우, <strong>앱 내 '계정 삭제' 기능</strong> 또는 위의 <strong>웹 삭제 요청</strong>을 통해 즉시 데이터를 파기할 수 있습니다.</p>
-        </section>
+            <section>
+                <h2>1. Principles of Data Processing</h2>
+                <p>StayMe is designed with user privacy as its top priority. By default, the app operates based on
+                    **"Anonymity"** and only temporarily processes data required for real-time focus. However, for users
+                    who voluntarily link their social accounts to use the **"StayMe Premium" subscription service**, we
+                    retain the minimum necessary data to maintain payment and access rights.</p>
+            </section>
 
-        <section>
-            <h2>7. 문의처</h2>
-            <div class="contact-box">
-                <p>프라이버시와 데이터 처리, 혹은 계정 삭제와 관련하여 문의사항이 있으시면 아래로 연락 부탁드립니다.</p>
-                <p style="margin-top: 10px;"><strong>지원 팀:</strong> support@franholdings.cloud</p>
+            <section>
+                <h2>2. Data Collection and Storage Methods</h2>
+                <p>This app processes data in three ways depending on the usage pattern.</p>
+
+                <div class="data-card">
+                    <h3>A. Local Storage on Device (All Users)</h3>
+                    <p>The following information is not transmitted to the server and is stored only on the user's
+                        device. It is removed when the app is deleted.</p>
+                    <ul>
+                        <li>Personal settings (Timer duration, wallpaper, theme mode, etc.)</li>
+                        <li>Device-specific nickname</li>
+                        <li>Onboarding completion status</li>
+                    </ul>
+                </div>
+
+                <div class="data-card">
+                    <h3>B. Real-time Transmission Data (All Users)</h3>
+                    <p>This is volatile data that temporarily passes through or stays on the server to provide the
+                        real-time active user display feature.</p>
+                    <ul>
+                        <li><strong>Anonymous Session ID:</strong> A randomly generated identifier that cannot be used
+                            on its own to identify a specific individual.</li>
+                        <li><strong>Real-time Status:</strong> Includes current connection status, set nickname, and
+                            connection start time. This data is destroyed when the connection is lost.</li>
+                    </ul>
+                </div>
+
+                <div class="data-card">
+                    <h3>C. Premium Subscriber Data (Subscribed Users Only)</h3>
+                    <p>For users who link their Apple or Google social accounts for a premium subscription, the
+                        following information is retained.</p>
+                    <ul>
+                        <li><strong>Security Identifier:</strong> Encrypted Provider UID for logging in on other devices
+                            and restoring subscriptions (Email addresses, etc., are not explicitly displayed in the app
+                            or used for marketing).</li>
+                        <li><strong>Payment Status Information:</strong> Current subscription validity (isPremium) and
+                            expiration date (expiryDate). This app does not directly collect or process sensitive
+                            financial information such as credit card numbers.</li>
+                    </ul>
+                </div>
+
+                <div class="data-card">
+                    <h3>D. Group Chat Data (Service Users Only)</h3>
+                    <p>When using the 'Group Mode' sharing the same invitation code, the following information is
+                        temporarily stored for smooth communication.</p>
+                    <ul>
+                        <li><strong>Chat Messages:</strong> Text content and transmission time manually entered by the
+                            user.</li>
+                        <li><strong>Sender Information:</strong> Nickname to be displayed in messages and User
+                            Identification ID (UID).</li>
+                        <li><strong>Disclosure Scope:</strong> Disclosed to all members who have entered the same
+                            invitation code and joined the group.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>3. Data Retention Period and Destruction</h2>
+                <p>For anonymous users, all local data stored on the device is deleted simply by deleting the app, and
+                    connection status data recorded on the server is immediately and automatically destroyed
+                    (Zero-Retention).</p>
+                <p>For **group chat messages**, they are stored on the server for a **maximum of 24 hours** for
+                    conversation continuity and then automatically and permanently deleted.</p>
+                <p>For users who have linked a social account, they can withdraw at any time via the **[Delete Account]
+                    button in the 'Settings > Account Management' menu** within the app. Upon withdrawal, all associated
+                    user identifiers and server data are immediately and permanently deleted.</p>
+            </section>
+
+            <section id="delete-account-en">
+                <h2>4. Account Deletion Request via Web</h2>
+                <p>If you have already deleted the app or cannot access it, you can request the deletion of your account
+                    and related data using the method below.</p>
+                <div class="contact-box">
+                    <ul>
+                        <li><strong>Request Method:</strong> Send a support email including account identification
+                            information (social login email address, etc.).</li>
+                        <li><strong>Email Address:</strong> <a
+                                href="mailto:support@franholdings.cloud?subject=StayMe Account Deletion Request">support@franholdings.cloud</a>
+                        </li>
+                        <li><strong>Processing Time:</strong> Completed within 7 business days after receipt of the
+                            request, with a confirmation reply sent.</li>
+                    </ul>
+                    <p style="font-size: 0.85rem; color: #cc4444; margin-top: 10px; font-weight: 600;">
+                        ※ Caution: Upon account deletion, premium membership information and all activity data will be
+                        permanently deleted and cannot be recovered. Subscription management (cancellation) must be
+                        handled directly in the respective store account settings.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2>5. Third-Party Services</h2>
+                <p>We use the following reputable external infrastructures to provide stable functionality and verify
+                    recurring payments. Data is strictly never used for purposes other than these (advertising,
+                    third-party marketing, etc.).</p>
+                <ul>
+                    <li><strong>Google Firebase (Analytics):</strong> Collects statistical data for app usage behavior
+                        analysis, preference measurement by feature, and service improvement (based on anonymized app
+                        instance identifiers).</li>
+                    <li><strong>Google Firebase (Auth/Database):</strong> Provides encrypted cloud infrastructure for
+                        real-time data binding and social login authentication.</li>
+                    <li><strong>RevenueCat:</strong> Verifies App Store and Play Store in-app purchase receipts and
+                        manages subscription lifecycles (communicates based on anonymized App User IDs).</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>6. User Rights</h2>
+                <p>Users can control their nickname and real-time features at any time. Most of the collected data is
+                    volatile, and anonymous users can stop data processing simply by deleting the app. For social-linked
+                    users, data can be destroyed immediately via the **'Delete Account' feature within the app** or the
+                    **web deletion request** mentioned above.</p>
+            </section>
+
+            <section>
+                <h2>7. Contact Information</h2>
+                <div class="contact-box">
+                    <p>If you have any questions regarding privacy, data processing, or account deletion, please contact
+                        us below.</p>
+                    <p style="margin-top: 10px;"><strong>Support Team:</strong> support@franholdings.cloud</p>
+                </div>
+            </section>
+
+            <div class="footer">
+                &copy; 2026 Franholdings. All rights reserved.
+                <br><br>
+                <a href="?lang=ko" style="color: var(--text-sub); text-decoration: none; font-weight: 600;">한국어 버전</a>
             </div>
-        </section>
-
-        <div class="footer">
-            &copy; 2026 프랜홀딩스. All rights reserved.
         </div>
     </div>
 
